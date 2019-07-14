@@ -1,0 +1,12 @@
+[package]
+name = "rust-15-puzzle"
+version = "0.1.0"
+authors = ["Robert Serrano Kobylyansky <sk.robchik@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+pathfinding = "1.1.12"
+strum = "0.15.0"
+strum_macros = "0.15.0"
