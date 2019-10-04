@@ -47,11 +47,11 @@ impl MatrixIndex{
 
 #[derive(PartialEq, Eq, Hash, Clone)]
 pub struct Node{
-    tiles: [[u8; 4]; 4],
+    pub tiles: [[u8; 4]; 4],
     pub parent_direction: Option<Direction>,
 }
 impl Node{
-    const SOLVED_TILES: [[u8; 4]; 4] = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]];
+    pub const SOLVED_TILES: [[u8; 4]; 4] = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]];
     pub fn from_tiles(tiles: [[u8; 4]; 4]) -> Node{
         Node{
             tiles: tiles,
@@ -86,7 +86,18 @@ impl Node{
         distance += i32::abs(index_1.j as i32 - index_2.j as i32);
         distance as u32
     }
-    pub fn heuristic(&self) -> u32{
+    pub fn heuristic1(&self) -> u32{
+        let mut value: u32 = 0;
+        for i in 0..4{
+            for j in 0..4{
+                if self.tiles[i][j] != Node::SOLVED_TILES[i][j]{
+                    value += 1;
+                }
+            }
+        }
+        value
+    }
+    pub fn heuristic2(&self) -> u32{
         let mut value: u32 = 0;
         for i in 0..4{
             for j in 0..4{
@@ -95,7 +106,7 @@ impl Node{
         }
         value
     }
-    fn slide(&mut self, direction: Direction){
+    pub fn slide(&mut self, direction: Direction){
         let zero_index = Node::get_index(&self.tiles, 0).unwrap();
         let mut swap_index = MatrixIndex::from(zero_index.i, zero_index.j); 
         match direction{
